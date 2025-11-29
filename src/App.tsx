@@ -20,37 +20,55 @@ const FoodDetails = lazy(() => import("./pages/FoodDetails"));
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider>
-      <FoodProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <ScrollToTop />
-            <div className="flex flex-col min-h-screen">
-              <Navbar />
-              <main className="flex-grow pt-20">
-                <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/menu" element={<Menu />} />
-                    <Route path="/menu/:id" element={<FoodDetails />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="/admin" element={<Admin />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </Suspense>
-              </main>
-              <Footer />
-            </div>
-          </BrowserRouter>
-        </TooltipProvider>
-      </FoodProvider>
-    </ThemeProvider>
-  </QueryClientProvider>
-);
+import { useState, useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
+import Preloader from "@/components/Preloader";
+
+const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <FoodProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <ScrollToTop />
+              <AnimatePresence mode="wait">
+                {isLoading && <Preloader key="preloader" />}
+              </AnimatePresence>
+              <div className="flex flex-col min-h-screen">
+                <Navbar />
+                <main className="flex-grow pt-20">
+                  <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+                    <Routes>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/menu" element={<Menu />} />
+                      <Route path="/menu/:id" element={<FoodDetails />} />
+                      <Route path="/about" element={<About />} />
+                      <Route path="/contact" element={<Contact />} />
+                      <Route path="/admin" element={<Admin />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </Suspense>
+                </main>
+                <Footer />
+              </div>
+            </BrowserRouter>
+          </TooltipProvider>
+        </FoodProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;

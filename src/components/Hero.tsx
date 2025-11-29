@@ -22,7 +22,7 @@ export default function Hero() {
   }, [backgroundImages.length]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden -mt-20">
       {/* Background Slideshow */}
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="popLayout">
@@ -53,18 +53,18 @@ export default function Hero() {
 
       <div className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl z-0" />
 
-      <div className="container relative z-20 mx-auto px-4 py-20 grid md:grid-cols-2 gap-8 items-center">
+      <div className="container relative z-20 mx-auto px-4 pt-28 md:pt-32 lg:pt-40 pb-12 md:pb-20 grid md:grid-cols-2 gap-8 items-center">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
           className="space-y-6"
         >
-          <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-tight">
             BEST QUALITY
             <span className="block text-primary">FOOD</span>
           </h1>
-          <p className="text-lg text-gray-200 max-w-lg">
+          <p className="text-base md:text-lg text-gray-200 max-w-lg">
             Experience the finest culinary delights crafted with passion and
             served with excellence. Every dish tells a story of flavor and
             tradition.
@@ -72,7 +72,7 @@ export default function Hero() {
           <Link to="/contact">
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold mt-6 px-8 py-6 text-lg group"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold mt-6 px-6 py-5 md:px-8 md:py-6 text-base md:text-lg group w-full md:w-auto"
             >
               Book Now
               <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
